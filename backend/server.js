@@ -4,7 +4,11 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       cors = require('cors'),
       mongoose = require('mongoose'),
-      config = require('./config/DB');
+      config = require('./config/DB'),
+      morgan = require('morgan'),
+      coinRoutes = require('./expressRoutes/coinRoutes');
+
+
 
       mongoose.Promise = global.Promise;
       mongoose.connect(config.DB).then(
@@ -13,9 +17,12 @@ const express = require('express'),
         );
 
       const app = express();
+      app.use(morgan('dev'));
       app.use(bodyParser.json());
       app.use(cors());
       const port = process.env.PORT || 4000;
+      app.use('/coins', coinRoutes);
+      
 
        const server = app.listen(port, function(){
          console.log('Listening on port ' + port);
