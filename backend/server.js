@@ -6,7 +6,8 @@ const express = require('express'),
       mongoose = require('mongoose'),
       config = require('./config/DB'),
       morgan = require('morgan'),
-      coinRoutes = require('./expressRoutes/coinRoutes');
+      coinRoutes = require('./expressRoutes/coinRoutes'),
+      adUnitRoutes = require('./expressRoutes/adunit.route');
 
 
 
@@ -15,6 +16,7 @@ const express = require('express'),
           () => {console.log('Database is connected') },
           err => { console.log('Can not connect to the database'+ err)}
         );
+        
 
       const app = express();
       app.use(morgan('dev'));
@@ -22,6 +24,7 @@ const express = require('express'),
       app.use(cors());
       const port = process.env.PORT || 4000;
       app.use('/coins', coinRoutes);
+      app.use('/adunits', adUnitRoutes);
       
 
        const server = app.listen(port, function(){
