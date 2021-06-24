@@ -25,7 +25,7 @@ adUnitRoutes.route('/').get(function (req, res) {
     AdUnit.find(function (err, adUnits){
         if(err){
             console.log(err);
-        }else{
+        } else {
             res.json(adUnits);
         }
     });
